@@ -30,6 +30,8 @@ The feature envy and message chain smells seem to be related to the operation be
 ## 4. Try worsens the smell
 This change to a try clause did in fact worsen all of the smells present in the method (FeatureEnvy, LongMethod,  DispersedCoupling). In this try clause, there are several nested conditions. The change made the line not execute when a specific condition was met, but since the conditions were nested, this required the developer to duplicate this same line multiple times, adding more calls to an external method and making the class longer.
 
+<hr>
+  
 # Smells Collected
 
 #### Brain Method
@@ -47,3 +49,89 @@ This change to a try clause did in fact worsen all of the smells present in the 
 #### Long Parameter List
   A method having a long list of parameters, some of which avoidable
 
+<hr>
+  
+# Files
+### Commits and Classes Analyzed.xlsx
+  
+Contains the .xlsx with the analysis performed by the authors. 
+Each row contains the 
+  * Commit Hash
+  * Project Name
+  * Class Name 
+  * Method Name
+  * Notes: Filled by the authors with their perceptions
+  * TAGs: The authors divided the analyzed row into
+    - ROBUSTNESS_RELATED: When the change was related to robustness
+    - ROBUSTNESS_NOT_RELATED:  When the change was not related to robustness 
+    - OTHER_NFR: When the change was related to other NFR (e.g. Security)
+    - ROBUSTNESS_IMPROVEMENT: When there was a robustness improvement in the change
+    - ROBUSTNESS_NOT_IMPROVEMENT: When there was no robustness improvement in the change
+  
+ ### /samples to analyze by project
+ 
+ Contains the .json files used by the authors to help them on the analysis. We have a file <code> sample_$project$.json </code> for each project.
+ On each file, the authors matched the commit hash from the .xlsx file with the hash on the .json file, identifying the smells affecting the method to be analyzed.
+  
+Following we have an example on the Netty Project, for the commit <code> "95652fef12" </code>.
+In this file the author would use the mainly <code> "smells" </code> information.
+  
+ ```yaml
+   {
+    "Netty": {
+        "95652fef12": [
+            {
+                "className": "io.netty.channel.kqueue.KQueueDatagramChannel",
+                "exceptionalChanges": [
+                    {
+                        "changedMethod": "KQueueDatagramChannel.doWrite",
+                        "methodInfo": {
+                            "parametersTypes": [
+                                "ChannelOutboundBuffer"
+                            ],
+                            "sourceFile": {
+                                "fileRelativePath": "transport-native-kqueue/src/main/java/io/netty/channel/kqueue/KQueueDatagramChannel.java"
+                            },
+                            "metricsValues": {
+                                "ChangingMethods": 0.0,
+                                "MaxCallChain": 2.0,
+                                "CyclomaticComplexity": 8.0,
+                                "NumberOfCatchStatements": 1.0,
+                                "ParameterCount": 1.0,
+                                "NumberOfFinallyStatements": 0.0,
+                                "ThrownExceptionTypesCount": 1.0,
+                                "NumberOfDummyExceptionHandlers": 0.0,
+                                "NumberOfThrowStatements": 0.0,
+                                "ExceptionalLOC": 21.0,
+                                "MethodLinesOfCode": 21.0,
+                                "NumberOfAccessedVariables": 6.0,
+                                "NumberOfTryStatementsWithNoCatchAndFinally": 0.0,
+                                "CouplingIntensity": 9.0,
+                                "CouplingDispersion": 0.5555555555555556,
+                                "NumberOfTryStatements": 1.0,
+                                "ChangingClasses": 0.0,
+                                "MaxNesting": 3.0
+                            },
+                            "fullyQualifiedName": "io.netty.channel.kqueue.KQueueDatagramChannel.doWrite",
+                            "smells": [
+                                {
+                                    "name": "FeatureEnvy",
+                                    "reason": "CALLS_TO_io.netty.channel.ChannelOutboundBuffer > 4",
+                                    "startingLine": 246,
+                                    "endingLine": 282
+                                },
+                                {
+                                    "name": "DispersedCoupling",
+                                    "reason": "CINT > 8.0, CDISP > 0.5, CC > 1.0",
+                                    "startingLine": 246,
+                                    "endingLine": 282
+                                }
+                            ],
+                            "kind": "protected method"
+                        }
+                    },
+   ...
+  }
+  
+
+  
