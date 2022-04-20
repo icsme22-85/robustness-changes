@@ -1,5 +1,8 @@
-# Groups
-## 1. Smells exist and are worsened
+# The Impact of Robustness-Related Changes on the Software Design
+## ICSME '22
+
+### Groups
+#### 1. Smells exist and are worsened
 "I am pretty sure that all smells existed at the point of this change. However, the robustness improvement contributes to the worsening of two smells (LongMethod and BrainMethod)."
 
 "The change improves the robustness, however the smells already existed and were not affected by the change."
@@ -17,22 +20,22 @@
 "The change moves the code from the catch to finally, which can be problematic, not handling the error. In addition, the calls in the catch blocks makes the code have the Feature Envy"
 
 
-## 2. Refactoring
+#### 2. Refactoring
 "The exception changes indeed contribute for making the method long and being coupled to different classes. Given the aparent complexity of the feature, the try with resources part could be improved or even extracted to a sub method."
 
 "Refactoring brought already existing code from other classes to this one which was almost empty. Introduced the smell. Exception handling is being used mostly for logging."
 
 
-## 3. Indirect Relation
+#### 3. Indirect Relation
 The feature envy and message chain smells seem to be related to the operation being performed, which is parsing. It is common that this kind of operation may result in exceptions. Therefore, there is an indirect relation between the smells and the exceptional change.
 
 
-## 4. Try worsens the smell
+#### 4. Try worsens the smell
 This change to a try clause did in fact worsen all of the smells present in the method (FeatureEnvy, LongMethod,  DispersedCoupling). In this try clause, there are several nested conditions. The change made the line not execute when a specific condition was met, but since the conditions were nested, this required the developer to duplicate this same line multiple times, adding more calls to an external method and making the class longer.
 
 <hr>
   
-# Smells Collected
+### Smells Collected
 
 #### Brain Method
   Long and complex method that centralizes the intelligence of a class
@@ -51,8 +54,8 @@ This change to a try clause did in fact worsen all of the smells present in the 
 
 <hr>
   
-# Files
-### Commits and Classes Analyzed.xlsx
+### Files
+#### Commits and Classes Analyzed.xlsx
   
 Contains the .xlsx with the analysis performed by the authors. 
 Each row contains the 
@@ -68,7 +71,7 @@ Each row contains the
     - ROBUSTNESS_IMPROVEMENT: When there was a robustness improvement in the change
     - ROBUSTNESS_NOT_IMPROVEMENT: When there was no robustness improvement in the change
   
- ### /samples to analyze by project
+ #### /samples to analyze by project
  
  Contains the .json files used by the authors to help them on the analysis. We have a file <code> sample_$project$.json </code> for each project.
  On each file, the authors matched the commit hash from the .xlsx file with the hash on the .json file, identifying the smells affecting the method to be analyzed.
